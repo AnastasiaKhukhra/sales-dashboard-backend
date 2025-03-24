@@ -15,7 +15,7 @@ export class SalesController {
   ): Promise<{ data: Sale[]; total: number }> {
     // If limit is greater than 100, treat it as an analytics request and return all records
     if (limit > 100) {
-      return this.salesService.findAll(1, 10000, sortField, sortDirection);
+      return this.salesService.findAll(1, 100000, sortField, sortDirection);
     }
     return this.salesService.findAll(page, limit, sortField, sortDirection);
   }
