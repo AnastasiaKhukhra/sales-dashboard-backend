@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: salesdb
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+
+volumes:
+  db-data:
