@@ -1,51 +1,57 @@
 # Sales Dashboard Backend
 
-A robust NestJS backend service for the Sales Dashboard application. This service provides RESTful APIs for managing sales data, including CRUD operations and data analysis endpoints.
+A robust NestJS backend service that powers the Sales Dashboard application, providing RESTful APIs for sales data management and analytics.
 
-## Features
+## 🚀 Live Demo
 
-- 🔄 RESTful API Endpoints
-  - Sales CRUD operations
-  - Bulk data import via CSV
-  - Data export functionality
-  - Analytics-specific endpoints
-- 📊 Data Analysis
-  - Sales statistics and trends
+Backend API: [Sales Dashboard API](https://sales-dashboard-backend-v20k.onrender.com)
+Frontend Demo: [Sales Dashboard Frontend](https://sales-dashboard-frontend-its6.onrender.com/)
+
+## ✨ Features
+
+- 📊 Comprehensive Sales API
+  - CRUD operations for sales records
+  - Bulk data import support
+  - Pagination and sorting
+  - Advanced filtering options
+
+- 📈 Analytics Endpoints
+  - Total sales calculations
   - Product performance metrics
-  - Revenue analytics
-  - Latest sales by product
-- 🔒 Data Validation
-  - Input validation using class-validator
-  - Type safety with TypeScript
-  - CSV file validation
-- 🗄️ Database Integration
-  - PostgreSQL database
-  - TypeORM for database operations
-  - Efficient querying and pagination
-- 🐳 Docker Support
-  - Containerized application
-  - Easy deployment setup
-  - Development and production configurations
+  - Sales trends analysis
+  - Data aggregation
 
-## Tech Stack
+- 🗄️ Database Features
+  - PostgreSQL integration
+  - TypeORM for data modeling
+  - Efficient query optimization
+  - Data validation
 
-- NestJS
-- TypeScript
-- PostgreSQL
-- TypeORM
-- Docker
-- Jest (for testing)
-- class-validator
-- class-transformer
+- 🔒 Security & Performance
+  - CORS configuration
+  - Error handling
+  - Request validation
+  - Performance optimization
 
-## Prerequisites
+## 🛠 Tech Stack
 
-- Node.js (v16 or higher)
-- npm (v7 or higher)
-- PostgreSQL (v13 or higher)
-- Docker (optional, for containerized deployment)
+- **Framework:**
+  - NestJS (Node.js framework)
+  - TypeScript
+  - Express.js
 
-## Getting Started
+- **Database:**
+  - PostgreSQL
+  - TypeORM (ORM)
+  - Migrations support
+
+- **Development Tools:**
+  - ESLint
+  - Prettier
+  - TypeScript compiler
+  - Git for version control
+
+## 🚦 Getting Started
 
 1. Clone the repository:
    ```bash
@@ -58,108 +64,93 @@ A robust NestJS backend service for the Sales Dashboard application. This servic
    npm install
    ```
 
-3. Set up environment variables:
-   Create a `.env` file in the root directory with the following content:
-   ```
-   DATABASE_URL=postgresql://username:password@localhost:5432/sales_dashboard
+3. Create a `.env` file in the root directory:
+   ```env
+   # Database Configuration
+   DATABASE_URL=postgresql://username:password@localhost:5432/sales_database
+
+   # Server Configuration
    PORT=3000
-   CORS_ORIGIN=http://localhost:5173
    ```
 
-4. Start the development server:
+4. Run database migrations:
+   ```bash
+   npm run migration:run
+   ```
+
+5. Start the development server:
    ```bash
    npm run start:dev
    ```
 
-## Docker Setup
-
-1. Build the Docker image:
-   ```bash
-   docker-compose build
-   ```
-
-2. Start the containers:
-   ```bash
-   docker-compose up -d
-   ```
-
-## Project Structure
+## 📁 Project Structure
 
 ```
 src/
 ├── sales/             # Sales module
-│   ├── dto/          # Data Transfer Objects
-│   │   ├── create-sale.dto.ts
-│   │   ├── update-sale.dto.ts
-│   │   └── bulk-create-sales.dto.ts
-│   ├── entities/     # Database entities
-│   │   └── sale.entity.ts
-│   ├── sales.controller.ts
-│   ├── sales.service.ts
-│   ├── sales.repository.ts
-│   └── sales.module.ts
-├── common/           # Shared resources
-│   ├── decorators/  # Custom decorators
-│   ├── filters/     # Exception filters
-│   └── pipes/       # Custom pipes
-├── config/          # Configuration files
-├── app.module.ts    # Root module
-└── main.ts         # Application entry point
+│   ├── sale.entity.ts    # Database entity
+│   ├── sales.service.ts  # Business logic
+│   ├── sales.controller.ts # API routes
+│   └── sales.repository.ts # Data access
+├── database/          # Database configuration
+│   ├── migrations/    # Database migrations
+│   └── data-source.ts # TypeORM config
+├── app.module.ts      # Main application module
+└── main.ts           # Application entry point
 ```
 
-## API Endpoints
+## 🔌 API Endpoints
 
-### Sales
+### Sales Endpoints
 
-- `GET /sales` - Get all sales (paginated)
-  - Query parameters:
-    - `page` (default: 1)
-    - `limit` (default: 10)
-    - `sortField` (default: 'date')
-    - `sortDirection` (default: 'desc')
-- `GET /sales/:id` - Get a specific sale
-- `POST /sales` - Create a new sale
-- `PUT /sales/:id` - Update a sale
-- `DELETE /sales/:id` - Delete a sale
-- `POST /sales/bulk` - Bulk create sales from CSV
-- `GET /sales/export` - Export sales data to CSV
-
-### Analytics
-
-- `GET /analytics/summary` - Get sales summary statistics
-- `GET /analytics/product-performance` - Get product performance metrics
-- `GET /analytics/latest-sales` - Get latest sales by product
-
-## Testing
-
-Run the test suite:
-```bash
-npm run test
+```
+GET    /sales              # Get sales (with pagination)
+POST   /sales              # Create new sale
+PUT    /sales/:id          # Update sale
+DELETE /sales/:id          # Delete sale
+POST   /sales/bulk         # Bulk create sales
 ```
 
-Run tests with coverage:
-```bash
-npm run test:cov
+### Query Parameters
+- `page`: Page number (default: 1)
+- `limit`: Items per page (default: 10)
+- `sortField`: Field to sort by (default: 'date')
+- `sortDirection`: Sort direction ('asc' or 'desc')
+
+## 📝 Available Scripts
+
+- `npm run start:dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start:prod` - Start production server
+- `npm run migration:generate` - Generate new migration
+- `npm run migration:run` - Run migrations
+- `npm run migration:revert` - Revert last migration
+
+## 🔑 Environment Variables
+
+```env
+# Database Configuration
+DATABASE_URL=postgresql://username:password@localhost:5432/sales_database
+
+# Server Configuration
+PORT=3000
 ```
 
-## Available Scripts
-
-- `npm run start` - Start the application
-- `npm run start:dev` - Start in development mode
-- `npm run build` - Build the application
-- `npm run test` - Run tests
-- `npm run test:cov` - Run tests with coverage
-- `npm run lint` - Run ESLint
-- `npm run format` - Format code with Prettier
-
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create your feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
 5. Open a Pull Request
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🙏 Acknowledgments
+
+- [NestJS](https://nestjs.com/) for the excellent Node.js framework
+- [TypeORM](https://typeorm.io/) for the database ORM
+- [PostgreSQL](https://www.postgresql.org/) for the reliable database system
+- [Render](https://render.com/) for hosting the application
