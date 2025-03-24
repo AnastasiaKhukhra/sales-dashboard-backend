@@ -9,18 +9,17 @@ import { Sale } from './sales/sale.entity';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(), // Завантаження змінних середовища з .env
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DB_HOST || 'localhost',
-      port: parseInt(process.env.DB_PORT || '5432', 10), // Використовуємо `||` замість `??`
-      username: process.env.DB_USER || 'user',
-      password: process.env.DB_PASS || 'password',
-      database: process.env.DB_NAME || 'salesdb',
-      entities: [Sale], // Додаємо модель Sale
-      synchronize: true, // Автоматичне створення таблиць (на етапі розробки)
+      url: process.env.DATABASE_URL,
+      entities: [Sale],
+      synchronize: false,
+      ssl: {
+        rejectUnauthorized: false
+      },
     }),
-    SalesModule, // Підключаємо модуль продажів
+    SalesModule,
   ],
   controllers: [AppController, SalesController],
   providers: [AppService],
